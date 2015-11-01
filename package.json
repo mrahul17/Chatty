@@ -9,6 +9,7 @@
     "author": "light94",
     "window": {
         "title": "Chatty",
+        "toolbar" : false,
         "position": "center",
         "min_width": 1200,
         "min_height": 700,
