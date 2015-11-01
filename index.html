@@ -1,12 +1,42 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Welcome to Chatty</title>
-    
-  </head>
-  <body >
-  
-  Hello World!
-    
-  </body>
+<head>
+	<title>Chatty</title>
+	<link rel="stylesheet" type="text/css" href="./src/css/bootstrap.min.css">
+	<link rel="stylesheet" href="./src/css/main.css">
+	<script src="./src/js/main.js"></script> 
+</head>
+<body class="container-fluid">
+	<div class="container-fluid fh">
+
+		<div class="col-md-3">
+			<ul class="nav nav-pills nav-stacked" role="tablist">
+				<li role="presentation" class="active"><a href="#fb" aria-controls="fb" role="tab" data-toggle="tab">Facebook</a></li>
+				<li role="presentation"><a href="#hangouts" aria-controls="hangouts" role="tab" data-toggle="tab">Hangouts</a></li>
+				<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
+				<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+			</ul>
+
+			<!-- Tab panes -->
+			
+		</div>
+		<div class="col-md-9 container-fluid fh">
+			<div class="tab-content fh">
+				<div role="tabpanel" class="tab-pane active fh" id="fb">
+					<iframe id="fb" src="https://www.messenger.com/login" width="100%" height="100%" scrolling="no" nwdisable nwfaketop   >
+					</iframe>
+				</div>
+				<div role="tabpanel" class="tab-pane fh" id="hangouts">...</div>
+				<div role="tabpanel" class="tab-pane fh" id="messages">...</div>
+				<div role="tabpanel" class="tab-pane fh" id="settings">...</div>
+			</div>
+			
+		</div>
+
+
+	</div>
+	<script type="text/javascript" src="./src/js/jquery-1.11.3.min.js" defer></script>
+	<script type="text/javascript" src="./src/js/bootstrap.min.js" defer></script>
+
+</body>
 </html>
