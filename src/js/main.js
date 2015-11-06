@@ -9,7 +9,7 @@ var win = gui.Window.get();
 var tray = new gui.Tray(
 			{
 			title:'Chatty',
-			icon:'img/icon.png',
+			icon:'src/images/chat_icon.png',
 			click: function()
 			{
 				win.show();
