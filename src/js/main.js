@@ -1,9 +1,31 @@
 var gui = require('nw.gui');
+var fs = require('fs');
 
+try
+{
+    var data = JSON.parse(fs.readFileSync("config.json"));
+    console.log(data);
+    var pos_x = data['pos_x'];
+    var pos_y = data['pos_y'];
+    var width = data['width'];
+    var height = data['height'];
+    
+}
+catch(err)
+{
+    console.log("Error parsing file "+ err);
+}
 // get current window
 
 var win = gui.Window.get();
-
+// realign with user preferences
+if(pos_x && pos_y && height && width)
+{
+        win.x = pos_x;
+        win.y = pos_y;
+        win.height = height;
+        win.width = width;
+}
 
 // add icon to tray
 var tray = new gui.Tray({
@@ -35,7 +57,20 @@ tray.menu = menu;
 // close window if exit pressed , else hide
 win.on('close', function() {
     if (exit)
+    {
+        // save preferences to config file
+        var pref = {
+            "pos_x":win.x,
+            "pos_y":win.y,
+            "width":win.width,
+            "height":win.height,
+        };
+        fs.writeFileSync("config.json",JSON.stringify(pref),"utf8");
+        console.log(pref);
         this.close(true); // true (force) is important here, else it will be an infinite loop
+
+    }
+        
     else
         this.hide();
 });
