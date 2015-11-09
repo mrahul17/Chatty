@@ -21,11 +21,11 @@ var win = gui.Window.get();
 // realign with user preferences
 if(pos_x && pos_y && height && width)
 {
-        win.x = pos_x;
-        win.y = pos_y;
-        win.height = height;
-        win.width = width;
+        win.moveTo(pos_x,pos_y);
+        win.resizeTo(width,height);
+
 }
+win.show();
 
 // add icon to tray
 var tray = new gui.Tray({

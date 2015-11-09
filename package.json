@@ -8,6 +8,7 @@
    },
    "author":"light94",
    "window":{  
+      "show":false,
       "title":"Chatty",
       "toolbar":false,
       "position":"center",
