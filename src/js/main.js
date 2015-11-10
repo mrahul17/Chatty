@@ -66,7 +66,6 @@ win.on('close', function() {
             "height":win.height,
         };
         fs.writeFileSync("config.json",JSON.stringify(pref),"utf8");
-        console.log(pref);
         this.close(true); // true (force) is important here, else it will be an infinite loop
 
     }
