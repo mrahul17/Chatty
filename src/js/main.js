@@ -73,3 +73,36 @@ win.on('close', function() {
     else
         this.hide();
 });
+
+// get reference to the iframes and get the title as a proxy for notifications
+function sync()
+{
+    var iframes = document.getElementsByTagName("iframe");// get reference to the iframes
+    var titles = ['Messenger','Google Hangouts']; // the default titles        
+    var options = {
+        icon : "src/images/chat_icon_pending.png"
+    } ;
+    for(var i = 0; i < iframes.length; i++)
+    {
+            setInterval(checkTitles,2000,iframes[i],titles[i],options);   
+       
+    }
+
+}
+var xtitle;
+function checkTitles(iframe,title,options)
+{
+    if(iframe.contentDocument.title != title && iframe.contentDocument.title != xtitle)
+    {
+        options.body = iframe.contentDocument.title;
+        var notification = new Notification("Chatty",options); 
+        notification.onshow = function(){
+            window.setTimeout(function(){notification.close();},3000);
+        };
+        notification.onclick = function(){
+            notification.close();
+        }
+        xtitle = iframe.contentDocument.title;
+        
+    }
+}
