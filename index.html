@@ -6,15 +6,15 @@
 	<link rel="stylesheet" href="./src/css/main.css">
 	<script src="./src/js/main.js"></script> 
 </head>
-<body class="container-fluid" onload="sync()">
+<body class="container-fluid" onload="startup()">
 	<div class="container-fluid fh">
 
 		<div class="col-md-2">
 			<ul class="nav nav-pills nav-stacked" role="tablist">
 				<li role="presentation" class="active"><a href="#fb" aria-controls="fb" role="tab" data-toggle="tab">Facebook</a></li>
 				<li role="presentation"><a href="#hangouts" aria-controls="hangouts" role="tab" data-toggle="tab">Hangouts</a></li>
-				<!--<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
-				<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>-->
+				<li role="presentation"><a href="#irc" aria-controls="irc" role="tab" data-toggle="tab">IRC</a></li>
+				<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
 			</ul>
 
 			<!-- Tab panes -->
@@ -23,15 +23,21 @@
 		<div class="col-md-10 container-fluid fh">
 			<div class="tab-content fh">
 				<div role="tabpanel" class="tab-pane active fh" id="fb">
-					<iframe  src="https://www.messenger.com/login" width="100%" height="100%" scrolling="no" nwdisable nwfaketop   >
+					<iframe id="fbFrame" src="" width="100%" height="100%" scrolling="no" nwdisable nwfaketop   >
 					</iframe>
 				</div>
 				<div role="tabpanel" class="tab-pane fh" id="hangouts">
-					<iframe  src="https://accounts.google.com/ServiceLogin?service=talk&passive=1209600&continue=https://hangouts.google.com/" width="100%" height="100%" scrolling="no" nwdisable nwfaketop   >
+					<iframe id="hangoutsFrame" src="" width="100%" height="100%" scrolling="no" nwdisable nwfaketop   >
 					</iframe>
 				</div>
-				<!--<div role="tabpanel" class="tab-pane fh" id="messages">...</div>
-				<div role="tabpanel" class="tab-pane fh" id="settings">...</div>-->
+				<div role="tabpanel" class="tab-pane fh" id="irc"><iframe src="" width="100%" height="100%" nwdisable nwfaketop></iframe></div>
+				<div role="tabpanel" class="tab-pane fh" id="settings">
+					<input id="fbcheck" type="checkbox" name="fb" onchange="toggle('fb')">Facebook<br>
+					<input id="hangoutscheck" type="checkbox" name="hangouts" onchange="toggle('hangouts')">Hangouts<br>
+					<input id="irccheck" type="checkbox" name="irc" onchange="toggle('irc')">IRC<br><br><br>
+
+					Changes will be affected on the next startup
+				</div>
 			</div>
 			
 		</div>

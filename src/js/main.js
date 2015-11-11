@@ -1,21 +1,26 @@
 var gui = require('nw.gui');
 var fs = require('fs');
+var iframes;
+var titles = ['Messenger','Google Hangouts'];
+var options = {
+    icon : "src/images/chat_icon_pending.png"
+} ;
 
 try
 {
     var data = JSON.parse(fs.readFileSync("config.json"));
-    console.log(data);
     var pos_x = data['pos_x'];
     var pos_y = data['pos_y'];
     var width = data['width'];
     var height = data['height'];
-    
+    var fb = data['fb'];
+    var hangouts = data['hangouts'];
+    var irc = data['irc'];
 }
 catch(err)
 {
     console.log("Error parsing file "+ err);
 }
-// get current window
 
 var win = gui.Window.get();
 // realign with user preferences
@@ -25,6 +30,7 @@ if(pos_x && pos_y && height && width)
         win.resizeTo(width,height);
 
 }
+
 win.show();
 
 // add icon to tray
@@ -65,7 +71,8 @@ win.on('close', function() {
             "width":win.width,
             "height":win.height,
         };
-        fs.writeFileSync("config.json",JSON.stringify(pref),"utf8");
+        changeconfig(pref);
+        saveconfig();
         this.close(true); // true (force) is important here, else it will be an infinite loop
 
     }
@@ -74,27 +81,41 @@ win.on('close', function() {
         this.hide();
 });
 
-// get reference to the iframes and get the title as a proxy for notifications
-function sync()
+function startup()
 {
-    var iframes = document.getElementsByTagName("iframe");// get reference to the iframes
-    var titles = ['Messenger','Google Hangouts']; // the default titles        
-    var options = {
-        icon : "src/images/chat_icon_pending.png"
-    } ;
-    for(var i = 0; i < iframes.length; i++)
+    iframes = document.getElementsByTagName("iframe");// get reference to the iframes
+    if(fb)
     {
-            setInterval(checkTitles,2000,iframes[i],titles[i],options);   
-       
+        iframes.item(0).src= "https://www.messenger.com/login";
+        iframes.item(0).addEventListener("load",sync(0));
+    }
+    if(hangouts)
+    {
+        iframes.item(1).src= "https://accounts.google.com/ServiceLogin?service=talk&passive=1209600&continue=https://hangouts.google.com/";
+        iframes.item(1).addEventListener("load",sync(1));
+    }
+    if(irc)
+    { 
+        iframes.item(2).src = "http://webchat.freenode.net?uio=MTY9dHJ1ZSYxMT05Mg07";
+        // no notifications for irc for now
     }
 
+    document.getElementById("fbcheck").checked = fb;
+    document.getElementById("hangoutscheck").checked = hangouts;
+    document.getElementById("irccheck").checked = irc;
 }
+
+function sync(i){
+    setInterval(checkTitles,2000,iframes.item(i),titles[i],options); 
+}
+
+
 var xtitle;
-function checkTitles(iframe,title,options)
+function checkTitles(nframe,title,options)
 {
-    if(iframe.contentDocument.title != title && iframe.contentDocument.title != xtitle)
+    if(nframe.contentDocument.title != title && nframe.contentDocument.title != xtitle)
     {
-        options.body = iframe.contentDocument.title;
+        options.body = nframe.contentDocument.title;
         var notification = new Notification("Chatty",options); 
         notification.onshow = function(){
             window.setTimeout(function(){notification.close();},3000);
@@ -102,7 +123,47 @@ function checkTitles(iframe,title,options)
         notification.onclick = function(){
             notification.close();
         }
-        xtitle = iframe.contentDocument.title;
+        xtitle = nframe.contentDocument.title;
         
     }
+}
+
+function toggle(item)
+{
+    if(item=='fb')
+    {
+        if (data['fb'])
+            changeconfig({'fb':false})
+        else
+            changeconfig({'fb':true})
+    }
+    if(item=='hangouts')
+    {
+         if (data['hangouts'])
+            changeconfig({'hangouts':false})
+        else
+            changeconfig({'hangouts':true})
+        
+    }
+    if(item=='irc')
+    {
+         if (data['irc'])
+            changeconfig({'irc':false})
+        else
+            changeconfig({'irc':true})
+    }
+}
+
+
+function changeconfig(newdata)
+{
+    for (item in newdata)
+    {
+        data[item] = newdata[item];
+    }
+
+}
+function saveconfig()
+{
+     fs.writeFileSync("config.json",JSON.stringify(data),"utf8");
 }
