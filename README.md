@@ -12,3 +12,8 @@ Supports:
 
 ![alt tag](https://raw.github.com/light94/Chatty/master/snapshots/fb.png)
 ![alt tag](https://raw.github.com/light94/Chatty/master/snapshots/hangouts.png)
+
+
+
+
+Chatty is licensed under **MIT License**
