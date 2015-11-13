@@ -118,7 +118,7 @@ function checkTitles(nframe,title,options)
         options.body = nframe.contentDocument.title;
         var notification = new Notification("Chatty",options); 
         notification.onshow = function(){
-            window.setTimeout(function(){notification.close();},3000);
+          //  window.setTimeout(function(){notification.close();},3000);
         };
         notification.onclick = function(){
             notification.close();
