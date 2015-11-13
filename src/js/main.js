@@ -113,7 +113,7 @@ function sync(i){
 var xtitle;
 function checkTitles(nframe,title,options)
 {
-    if(nframe.contentDocument.title != title && nframe.contentDocument.title != xtitle)
+    if(nframe.contentDocument.title != title && xtitle && nframe.contentDocument.title != xtitle)
     {
         options.body = nframe.contentDocument.title;
         var notification = new Notification("Chatty",options); 
