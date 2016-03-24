@@ -11,10 +11,8 @@ Supports:
 * Freenode IRC (webchat.freenode.net)
 * Desktop Notifications for the above (Beta)
 
-![alt tag](https://raw.github.com/light94/Chatty/master/snapshots/fb.png)
-![alt tag](https://raw.github.com/light94/Chatty/master/snapshots/hangouts.png)
+![alt tag](snapshots/fb.png)
 
-
-
+![alt tag](snapshots/hangouts.png)
 
 Chatty is licensed under **MIT License**
